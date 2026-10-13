@@ -1,6 +1,6 @@
-# 9장 예제 — AI 게시판 검색봇(RAG)
+# 8장 예제 — AI 게시판 검색봇(RAG)
 
-[9장 본문](../../chapters/09-ai-board-search.md)에서 다루는 코드의 전체 원본입니다.
+[8장 본문](../../chapters/08-ai-board-search.md)에서 다루는 코드의 전체 원본입니다.
 
 ## 파일 설명
 
@@ -35,7 +35,7 @@
    $this->forge->createTable('board_search_logs', true);
    ```
 
-4. 4장의 `PostModel`, 8장의 `spam_status` 컬럼이 이미 있어야 합니다 — 이 코드는 그 위에 바로 올라갑니다
+4. 4장의 `PostModel`, 7장의 `spam_status` 컬럼이 이미 있어야 합니다 — 이 코드는 그 위에 바로 올라갑니다
 5. `.env`에 `GROQ_API_KEY` 설정
 
 프런트엔드(질문 입력 폼, 마크다운 렌더링 포함)는 12장 예제 폴더의 패턴을 그대로 재사용하면 됩니다.

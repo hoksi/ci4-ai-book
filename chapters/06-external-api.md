@@ -118,7 +118,24 @@ public function hello()
 }
 ```
 
-`messages` 배열이 핵심입니다. `role: system`은 AI의 성격/지침을, `role: user`는 실제 사용자 메시지를 담습니다. `role: assistant`도 있는데, 이전 대화 내용을 포함시킬 때 씁니다 — 7장(AI 챗봇)에서 바로 이 세 번째 role을 활용해 대화 맥락을 이어가는 법을 다룹니다.
+`messages` 배열이 핵심입니다. `role: system`은 AI의 성격/지침을, `role: user`는 실제 사용자 메시지를 담습니다. `role: assistant`도 있는데, 이전 대화 내용을 포함시킬 때 씁니다 — 9장(AI 챗봇)에서 바로 이 세 번째 role을 활용해 대화 맥락을 이어가는 법을 다룹니다.
+
+## 응답 품질 조절하기: temperature와 reasoning_effort
+
+앞으로 이 책 전체에서 Groq를 호출할 때마다 계속 등장할 두 옵션을 여기서 짚고 넘어갑니다.
+
+**`temperature`**는 응답의 창의성/무작위성을 조절하는 값(보통 0\~1)입니다. 높을수록 매번 다른 표현으로 답하고, 낮을수록 같은 입력에 비슷한(결정적인) 답을 냅니다. "자유로운 대화가 필요한가, 일관된 판정이 필요한가"에 따라 장마다 다르게 씁니다 — 7장(스팸 필터)은 판정이 매번 똑같아야 하니 0, 8장(게시판 검색봇)은 사실 기반 답변이 필요해 0.3, 9장(챗봇)은 자연스러운 대화가 목적이라 0.8을 씁니다.
+
+**`reasoning_effort`**는 실제로 겪은 버그 때문에 꼭 알아야 하는 옵션입니다. 일부 추론(reasoning) 모델은 답변을 만들기 전에 "생각하는 과정"에 `max_tokens`를 먼저 소모하는데, 이게 전부 소진되면 **정작 사용자에게 보여줄 `content`가 빈 문자열로 돌아옵니다.** 이후 장들에서 Groq를 호출하는 코드에는 전부 `'reasoning_effort' => 'low'`가 들어가 있는데, 전부 이 문제를 피하기 위해서입니다.
+
+```php
+'body' => json_encode([
+    'model'            => config('PlaygroundConfig')->groqChatModel,
+    'messages'         => $messages,
+    'temperature'      => 0.8,    // 용도에 따라 조절
+    'reasoning_effort' => 'low',  // 빈 응답 버그 방지
+]),
+```
 
 ## 지금은 에러 처리를 자세히 다루지 않습니다
 
@@ -129,5 +146,6 @@ public function hello()
 - [ ] `.env`의 `GROQ_API_KEY`가 올바르게 로드되는가 (`env('GROQ_API_KEY')`를 `var_dump` 해서 확인)
 - [ ] `PlaygroundConfig`에 `.env`의 `playground.groqChatModel` 값이 실제로 반영되는가
 - [ ] Groq에 "안녕하세요" 정도의 간단한 메시지를 보내고 응답을 받아봤는가
+- [ ] `reasoning_effort => 'low'`를 뺐을 때와 넣었을 때 응답이 어떻게 달라지는지 비교해봤는가
 
-다음 장에서는 이 단발성 호출을 **이어지는 대화**로 바꿔서, 실제 챗봇 기능을 만들어보겠습니다.
+지금부터는 이 게시판 자체에 AI 기능을 하나씩 붙여나갑니다. 다음 장에서는 글이 등록될 때 자동으로 스팸 여부를 판단하는 기능부터 만들어보겠습니다.

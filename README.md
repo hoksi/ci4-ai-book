@@ -27,10 +27,10 @@ CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 게시판 
 
 | 챕터 | 내용 | CI4 개념 |
 |---|---|---|
-| [6장. 외부 API 연동 기초](chapters/06-external-api.md) | Groq에 첫 요청 보내기 | CURLRequest, Services, Config |
-| [7장. AI 챗봇 만들기](chapters/07-ai-chatbot.md) | 대화 컨텍스트, DB 저장 | 상태 관리, JSON 응답 |
-| [8장. AI 스팸 필터 만들기](chapters/08-ai-spam-filter.md) | 게시글 스팸 자동 판별 | Filters, 이벤트 훅 |
-| [9장. AI 게시판 검색봇(RAG) 만들기](chapters/09-ai-board-search.md) | 게시글 기반 Q&A 봇 | 키워드 검색/점수 매기기, 프롬프트 설계 |
+| [6장. 외부 API 연동 기초](chapters/06-external-api.md) | Groq에 첫 요청 보내기, temperature/reasoning_effort | CURLRequest, Services, Config |
+| [7장. AI 스팸 필터 만들기](chapters/07-ai-spam-filter.md) | 게시글 스팸 자동 판별 | Filters, 이벤트 훅 |
+| [8장. AI 게시판 검색봇(RAG) 만들기](chapters/08-ai-board-search.md) | 게시글 기반 Q&A 봇 | 키워드 검색/점수 매기기, 프롬프트 설계 |
+| [9장. AI 챗봇 만들기](chapters/09-ai-chatbot.md) | 대화 컨텍스트, DB 저장 (게시판과 독립) | 상태 관리, JSON 응답 |
 | [10장. 실시간으로 AI 응답 보여주기](chapters/10-sse-streaming.md) | SSE 스트리밍 | SSE |
 
 ### 3부 — 실전 다듬기

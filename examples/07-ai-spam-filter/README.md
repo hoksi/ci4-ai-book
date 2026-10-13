@@ -1,6 +1,6 @@
-# 8장 예제 — AI 스팸 필터
+# 7장 예제 — AI 스팸 필터
 
-[8장 본문](../../chapters/08-ai-spam-filter.md)에서 다루는 코드의 실제 원본입니다. cikorea.net CI4 Playground에서 그대로 복사해왔습니다.
+[7장 본문](../../chapters/07-ai-spam-filter.md)에서 다루는 코드의 실제 원본입니다. cikorea.net CI4 Playground에서 그대로 복사해왔습니다.
 
 ## 파일 설명
 
@@ -48,7 +48,7 @@
    $routes->get('spam-admin/post/(:num)/spam',    'SpamAdmin::spamPost/$1');
    ```
 
-5. 게시판 컨트롤러의 `store()`에서 `(new SpamChecker())->check($title, $content, $ip)` 호출 — 8장 본문의 "게시판에 연결하기" 참고
+5. 게시판 컨트롤러의 `store()`에서 `(new SpamChecker())->check($title, $content, $ip)` 호출 — 7장 본문의 "게시판에 연결하기" 참고
 6. `.env`에 `GROQ_API_KEY` 설정 (없으면 AI 판정 단계는 자동으로 `approved`로 통과시키고 규칙+평판 점수만으로 판단)
 
 관리자 화면 뷰(`spam-admin/index.php`)는 포함하지 않았습니다 — 키워드 목록 테이블과 `review` 게시글 목록을 보여주는 평범한 폼/테이블이라, 3장(뷰와 레이아웃)에서 배운 패턴으로 직접 만들어보는 걸 권장합니다.
