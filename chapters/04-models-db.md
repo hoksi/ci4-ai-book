@@ -141,7 +141,7 @@ class Board extends BaseController
 
 ## 시더: 샘플 데이터 채우기
 
-빈 게시판으로 매번 테스트하기는 불편합니다. **시더(Seeder)**로 샘플 데이터를 한 번에 밀어 넣을 수 있습니다.
+빈 게시판으로 매번 테스트하기는 불편합니다. **시더**(Seeder)로 샘플 데이터를 한 번에 밀어 넣을 수 있습니다.
 
 ```bash
 php spark make:seeder PostSeeder
