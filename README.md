@@ -1,8 +1,8 @@
 # CodeIgniter4로 만드는 AI 웹 서비스
 
-CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 문서 검색봇 등)을 직접 만들어보며 익히는 한국어 튜토리얼입니다.
+CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 게시판 검색봇 등)을 직접 만들어보며 익히는 한국어 튜토리얼입니다.
 
-공식 유저가이드([한글 번역](https://www.cikorea.net/docs/Codeigniter4))가 레퍼런스라면, 이 튜토리얼은 "그래서 이걸로 뭘 만드는가"에 초점을 맞춥니다. 모든 예제는 [cikorea.net CI4 Playground](https://cikorea2026.mycafe24.com/playground)에서 실제로 동작하는 코드를 기반으로 합니다.
+공식 유저가이드([한글 번역](https://www.cikorea.net/docs/Codeigniter4))가 레퍼런스라면, 이 튜토리얼은 "그래서 이걸로 뭘 만드는가"에 초점을 맞춥니다. 대부분의 예제는 [cikorea.net CI4 Playground](https://cikorea2026.mycafe24.com/playground)에서 실제로 동작하는 코드를 기반으로 하며, 일부(9, 10장)는 이 책을 위해 새로 작성했습니다.
 
 핵심 코드는 각 챕터 본문에 전부 인용되어 있습니다. Playground 저장소 자체는 비공개이지만, 챕터에서 다루는 파일의 전체 원본은 [`examples/`](examples/) 폴더에 별도로 공개해뒀습니다.
 
@@ -30,7 +30,7 @@ CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 문서 검
 | [6장. 외부 API 연동 기초](chapters/06-external-api.md) | Groq에 첫 요청 보내기 | CURLRequest, Services, Config |
 | [7장. AI 챗봇 만들기](chapters/07-ai-chatbot.md) | 대화 컨텍스트, DB 저장 | 상태 관리, JSON 응답 |
 | [8장. AI 스팸 필터 만들기](chapters/08-ai-spam-filter.md) | 게시글 스팸 자동 판별 | Filters, 이벤트 훅 |
-| [9장. AI 문서 검색봇(RAG) 만들기](chapters/09-ai-docsearch-rag.md) | 매뉴얼 기반 Q&A 봇 | 커스텀 spark 커맨드, 검색/인덱싱, 프롬프트 설계 |
+| [9장. AI 게시판 검색봇(RAG) 만들기](chapters/09-ai-board-search.md) | 게시글 기반 Q&A 봇 | 키워드 검색/점수 매기기, 프롬프트 설계 |
 | [10장. 실시간으로 AI 응답 보여주기](chapters/10-sse-streaming.md) | SSE 스트리밍 | SSE |
 
 ### 3부 — 실전 다듬기

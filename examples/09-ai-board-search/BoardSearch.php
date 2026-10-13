@@ -3,17 +3,17 @@
 namespace App\Controllers\Examples;
 
 use App\Controllers\BaseController;
+use App\Models\PostModel;
 
 /**
- * CI4 한국어 매뉴얼 AI 검색봇.
+ * AI 게시판 검색봇.
  *
- * app/Data/docsearch_index.json (php spark docsearch:build 로 생성) 에서
- * 질문과 관련된 매뉴얼 페이지를 키워드 점수로 찾아 Groq에게 근거로 넘기고,
- * 매뉴얼 내용에 기반한 답변 + 출처 링크를 반환한다.
+ * 승인된 게시글(spam_status = approved)을 대상으로 질문과 관련된 글을
+ * 키워드 점수로 찾아 Groq에게 근거로 넘기고, 게시글 내용에 기반한
+ * 답변 + 출처 링크를 반환한다.
  */
-class DocSearch extends BaseController
+class BoardSearch extends BaseController
 {
-    private const INDEX_FILE  = APPPATH . 'Data/docsearch_index.json';
     private const TOP_N       = 5;
     private const CONTEXT_MAX = 6000;
 
@@ -28,7 +28,7 @@ class DocSearch extends BaseController
     public function index(): string
     {
         $logs = db_connect()
-            ->table('doc_search_logs')
+            ->table('board_search_logs')
             ->orderBy('id', 'DESC')
             ->limit(10)
             ->get()
@@ -39,8 +39,8 @@ class DocSearch extends BaseController
         }
         unset($log);
 
-        return view('examples/docsearch/index', [
-            'title' => 'CI4 매뉴얼 AI 검색봇',
+        return view('examples/board-search/index', [
+            'title' => '게시판 검색봇',
             'logs'  => array_reverse($logs),
         ]);
     }
@@ -69,13 +69,13 @@ class DocSearch extends BaseController
                 ->setJSON(['error' => 'Groq API 키가 필요합니다.']);
         }
 
-        $matches = $this->searchDocs($question);
+        $matches = $this->searchPosts($question);
 
         if (empty($matches)) {
             return $this->response->setJSON([
                 'success'  => true,
                 'question' => $question,
-                'answer'   => '관련된 매뉴얼 문서를 찾지 못했습니다. 다른 질문어로 다시 시도해보세요.',
+                'answer'   => '관련된 게시글을 찾지 못했습니다. 다른 질문어로 다시 시도해보세요.',
                 'sources'  => [],
             ]);
         }
@@ -83,12 +83,12 @@ class DocSearch extends BaseController
         [$context, $sources] = $this->buildContext($matches);
 
         $systemPrompt = <<<PROMPT
-            당신은 CodeIgniter 4 한국어 공식 매뉴얼 기반 Q&A 도우미입니다.
-            아래 [매뉴얼 발췌]에 있는 내용만 근거로 한국어로 답변하세요.
-            발췌 내용에 답이 없으면 "매뉴얼에서 관련 내용을 찾지 못했습니다"라고 답하세요.
-            코드 예제가 있다면 포함하고, 4~6문장 이내로 간결하게 답변하세요.
+            당신은 게시판 글 기반 Q&A 도우미입니다.
+            아래 [게시글 발췌]에 있는 내용만 근거로 한국어로 답변하세요.
+            발췌 내용에 답이 없으면 "게시판에서 관련 글을 찾지 못했습니다"라고 답하세요.
+            4~6문장 이내로 간결하게 답변하세요.
 
-            [매뉴얼 발췌]
+            [게시글 발췌]
             {$context}
             PROMPT;
 
@@ -122,7 +122,7 @@ class DocSearch extends BaseController
                     ->setJSON(['error' => 'AI 응답이 비어 있습니다.']);
             }
 
-            db_connect()->table('doc_search_logs')->insert([
+            db_connect()->table('board_search_logs')->insert([
                 'question'   => $question,
                 'answer'     => $answer,
                 'sources'    => json_encode($sources, JSON_UNESCAPED_UNICODE),
@@ -143,34 +143,30 @@ class DocSearch extends BaseController
 
     public function clear(): \CodeIgniter\HTTP\ResponseInterface
     {
-        db_connect()->table('doc_search_logs')->truncate();
+        db_connect()->table('board_search_logs')->truncate();
         return $this->response->setJSON(['success' => true]);
     }
 
     // ─── private helpers ─────────────────────────────────────────────────────
 
-    /** @return array<int, array{doc: array, score: float, bestToken: string}> */
-    private function searchDocs(string $question): array
+    /** @return array<int, array{post: object, score: float, bestToken: string}> */
+    private function searchPosts(string $question): array
     {
-        static $index = null;
-
-        if ($index === null) {
-            $index = is_file(self::INDEX_FILE)
-                ? (json_decode(file_get_contents(self::INDEX_FILE), true) ?? [])
-                : [];
-        }
-
         $tokens = $this->tokenize($question);
 
-        if (empty($tokens) || empty($index)) {
+        if (empty($tokens)) {
             return [];
         }
 
+        $posts = (new PostModel())
+            ->where('spam_status', 'approved')
+            ->findAll();
+
         $results = [];
 
-        foreach ($index as $doc) {
-            $titleLower = mb_strtolower($doc['title']);
-            $textLower  = mb_strtolower($doc['text']);
+        foreach ($posts as $post) {
+            $titleLower = mb_strtolower($post->title);
+            $textLower  = mb_strtolower($post->content);
 
             $score     = 0.0;
             $bestToken = '';
@@ -189,7 +185,7 @@ class DocSearch extends BaseController
             }
 
             if ($score > 0) {
-                $results[] = ['doc' => $doc, 'score' => $score, 'bestToken' => $bestToken];
+                $results[] = ['post' => $post, 'score' => $score, 'bestToken' => $bestToken];
             }
         }
 
@@ -230,8 +226,8 @@ class DocSearch extends BaseController
     }
 
     /**
-     * @param array<int, array{doc: array, score: float, bestToken: string}> $matches
-     * @return array{0: string, 1: array<int, array{title: string, path: string, url: string}>}
+     * @param array<int, array{post: object, score: float, bestToken: string}> $matches
+     * @return array{0: string, 1: array<int, array{title: string, id: int, url: string}>}
      */
     private function buildContext(array $matches): array
     {
@@ -239,14 +235,14 @@ class DocSearch extends BaseController
         $sources = [];
 
         foreach ($matches as $m) {
-            $doc = $m['doc'];
-            $pos = $m['bestToken'] !== '' ? mb_stripos($doc['text'], $m['bestToken']) : false;
+            $post = $m['post'];
+            $pos  = $m['bestToken'] !== '' ? mb_stripos($post->content, $m['bestToken']) : false;
 
             $snippet = $pos !== false
-                ? mb_substr($doc['text'], max(0, $pos - 150), 900)
-                : mb_substr($doc['text'], 0, 900);
+                ? mb_substr($post->content, max(0, $pos - 150), 900)
+                : mb_substr($post->content, 0, 900);
 
-            $block = "### {$doc['title']}\n{$snippet}\n\n";
+            $block = "### {$post->title}\n{$snippet}\n\n";
 
             if (mb_strlen($context) + mb_strlen($block) > self::CONTEXT_MAX) {
                 break;
@@ -254,9 +250,9 @@ class DocSearch extends BaseController
 
             $context  .= $block;
             $sources[] = [
-                'title' => $doc['title'],
-                'path'  => $doc['path'],
-                'url'   => base_url('docs/Codeigniter4/' . $doc['path']),
+                'title' => $post->title,
+                'id'    => $post->id,
+                'url'   => base_url('board/' . $post->id),
             ];
         }
 

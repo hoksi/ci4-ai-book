@@ -15,7 +15,7 @@
 * [6장. 외부 API 연동 기초](chapters/06-external-api.md)
 * [7장. AI 챗봇 만들기](chapters/07-ai-chatbot.md)
 * [8장. AI 스팸 필터 만들기](chapters/08-ai-spam-filter.md)
-* [9장. AI 문서 검색봇(RAG) 만들기](chapters/09-ai-docsearch-rag.md)
+* [9장. AI 게시판 검색봇(RAG) 만들기](chapters/09-ai-board-search.md)
 * [10장. 실시간으로 AI 응답 보여주기](chapters/10-sse-streaming.md)
 
 ## 3부 — 실전 다듬기
