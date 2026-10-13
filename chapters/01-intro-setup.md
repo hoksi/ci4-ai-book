@@ -12,6 +12,8 @@ Laravel, Symfony 같은 "풀 기능" 프레임워크와 비교하면 CodeIgniter
 
 - PHP 8.1 이상, Composer
 - SQLite (대부분의 PHP 설치에 기본 포함) — 별도 DB 서버 설치 없이 바로 시작할 수 있습니다
+
+> **Windows를 쓰고 있다면** PHP/Composer를 Windows에 직접 설치하기보다 WSL(Linux) 환경을 먼저 만드는 걸 권장합니다. [부록 A. Windows + WSL 개발 환경 만들기](appendix-a-windows-wsl.md)를 먼저 보고, PHP와 Composer가 설치된 상태로 돌아오세요.
 - [Groq](https://console.groq.com) 계정 — 무료 티어로 충분합니다
 
 ## 프로젝트 생성

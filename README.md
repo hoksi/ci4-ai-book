@@ -42,9 +42,15 @@ CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 문서 검
 | [13장. 배포하기](chapters/13-deployment.md) | php-cli가 막힌 공유 호스팅 배포 | Git 배포, SFTP, SQLite 마이그레이션 우회 |
 | [14장. 마무리](chapters/14-wrapup.md) | 더 만들어볼 수 있는 아이디어 | — |
 
+### 부록
+
+| 부록 | 내용 |
+|---|---|
+| [부록 A. Windows + WSL 개발 환경 만들기](chapters/appendix-a-windows-wsl.md) | WSL2 설치부터 PHP/Composer, VS Code 연동까지 |
+
 ## 진행 상태
 
-1~14장 전체 집필 완료.
+1~14장 전체 집필 완료. 부록 A(Windows + WSL) 추가.
 
 ## 라이선스
 
