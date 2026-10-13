@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CodeIgniter4로 만드는 AI 웹 서비스
+  structure:
+    - type: space
+      key: ci4-ai-book
+      title: CodeIgniter4로 만드는 AI 웹 서비스
+      path: book
+      default: true
+      content:
+        directory: ./
