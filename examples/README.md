@@ -9,6 +9,7 @@ cikorea.net CI4 Playground 저장소 자체는 비공개이지만, 이 책에서
 | 챕터 | 폴더 |
 |---|---|
 | 7장. AI 챗봇 만들기 | [07-ai-chatbot/](07-ai-chatbot/) |
+| 8장. AI 스팸 필터 만들기 | [08-ai-spam-filter/](08-ai-spam-filter/) |
 | 9장. AI 문서 검색봇(RAG) | [09-ai-docsearch-rag/](09-ai-docsearch-rag/) |
 
 (나머지 챕터는 집필 완료 후 순차적으로 추가됩니다.)
