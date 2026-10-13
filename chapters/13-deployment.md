@@ -103,6 +103,18 @@ client.close()
 
 paramiko를 쓴 이유는 간단합니다 — 많은 공유 호스팅 환경에서는 `sshpass`가 설치되어 있지 않고, 매번 비밀번호를 손으로 치기도 번거롭습니다. Python으로 SSH/SFTP를 직접 다루면 이 전체 흐름을 스크립트 하나로 묶을 수 있습니다.
 
+### 실행 환경 준비
+
+`paramiko`는 Python 기본 패키지가 아니므로 따로 설치해야 합니다. 시스템 Python을 더럽히지 않도록 가상환경(venv) 안에 설치하는 걸 권장합니다.
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install paramiko
+.venv/bin/python migrate_prod_db.py
+```
+
+Debian/Ubuntu 계열은 시스템 Python이 PEP 668로 보호되어 있어서 `pip install paramiko`를 바로 실행하면 `externally-managed-environment` 에러가 날 수 있습니다. venv 안에서 설치하면 이 문제를 피해갈 수 있고, 어차피 이런 일회성 배포 스크립트용 패키지를 시스템 전역에 깔 이유도 없습니다.
+
 ## 왜 "서버에서 웹으로 명령을 실행하는 엔드포인트"를 만들면 안 되는가
 
 여기서 "매번 이렇게 로컬을 거치는 게 번거로우니, 토큰으로 보호된 `/ops/migrate` 같은 웹 엔드포인트를 하나 만들어서 브라우저로 호출하면 되지 않을까?"라는 생각이 들 수 있습니다. CI4는 실제로 `command('migrate --all')`이라는 헬퍼를 제공해서, 일반 웹 요청 핸들러 안에서도 spark 명령을 실행할 수 있게 해줍니다.
