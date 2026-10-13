@@ -71,7 +71,7 @@ for ($tick = 0; $tick < $maxTicks; $tick++) {
 
 여기서부터가 이 장의 핵심입니다. Groq(OpenAI 호환 API)는 요청에 `"stream": true`를 추가하면, 응답을 한 번에 주지 않고 **토큰이 생성되는 대로 조각조각** 흘려보내줍니다.
 
-문제는 6~9장에서 써온 CI4의 `CURLRequest`가 **응답을 전부 받은 뒤에야 반환하는 구조**라는 점입니다. 토큰이 도착하는 즉시 처리하려면, 더 저수준의 `curl_setopt(CURLOPT_WRITEFUNCTION, ...)`을 직접 써야 합니다. (8장의 `SpamChecker`에서 StopForumSpam을 호출할 때도 비슷하게 저수준 curl을 썼던 걸 기억해보세요 — CI4의 고수준 래퍼가 모든 상황에 맞는 건 아닙니다.)
+문제는 6\~9장에서 써온 CI4의 `CURLRequest`가 **응답을 전부 받은 뒤에야 반환하는 구조**라는 점입니다. 토큰이 도착하는 즉시 처리하려면, 더 저수준의 `curl_setopt(CURLOPT_WRITEFUNCTION, ...)`을 직접 써야 합니다. (8장의 `SpamChecker`에서 StopForumSpam을 호출할 때도 비슷하게 저수준 curl을 썼던 걸 기억해보세요 — CI4의 고수준 래퍼가 모든 상황에 맞는 건 아닙니다.)
 
 ```php
 public function stream(): void

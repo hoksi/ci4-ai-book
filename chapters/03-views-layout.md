@@ -65,7 +65,7 @@ return view('board/index', ['title' => '게시판', 'posts' => []]);
 <?= $this->endSection() ?>
 ```
 
-`extend()`로 어떤 레이아웃을 쓸지 선언하고, `section('content')` ~ `endSection()` 사이에 실제 내용을 채웁니다. 이 구조 덕분에 `<nav>`를 한 군데(레이아웃 파일)에서만 관리하면 모든 페이지에 자동으로 반영됩니다.
+`extend()`로 어떤 레이아웃을 쓸지 선언하고, `section('content')` \~ `endSection()` 사이에 실제 내용을 채웁니다. 이 구조 덕분에 `<nav>`를 한 군데(레이아웃 파일)에서만 관리하면 모든 페이지에 자동으로 반영됩니다.
 
 ## 섹션은 여러 개 쓸 수 있다
 
