@@ -93,9 +93,9 @@ class PostModel extends Model
 
 몇 가지 중요한 설정을 짚고 넘어갑니다.
 
-- **`$allowedFields`**: 여기 적힌 필드만 `insert()`/`update()`로 쓸 수 있습니다. 사용자가 폼에 `id`나 `views` 같은 필드를 몰래 추가해서 보내도, 목록에 없으면 무시됩니다. **Mass Assignment 공격을 막는 핵심 안전장치**입니다.
-- **`$useTimestamps`**: true로 켜두면 `insert()` 시 `created_at`, `update()` 시 `updated_at`을 자동으로 채워줍니다.
-- **`$useSoftDeletes`**: true면 `delete()`를 호출해도 실제로 행을 지우지 않고 `deleted_at`에 시각만 기록합니다. 이후 일반 조회(`find()`, `findAll()`)에서는 자동으로 제외됩니다. "실수로 지운 글 복구하기"가 훨씬 쉬워집니다.
+- `$allowedFields`: 여기 적힌 필드만 `insert()`/`update()`로 쓸 수 있습니다. 사용자가 폼에 `id`나 `views` 같은 필드를 몰래 추가해서 보내도, 목록에 없으면 무시됩니다. **Mass Assignment 공격을 막는 핵심 안전장치**입니다.
+- `$useTimestamps`: true로 켜두면 `insert()` 시 `created_at`, `update()` 시 `updated_at`을 자동으로 채워줍니다.
+- `$useSoftDeletes`: true면 `delete()`를 호출해도 실제로 행을 지우지 않고 `deleted_at`에 시각만 기록합니다. 이후 일반 조회(`find()`, `findAll()`)에서는 자동으로 제외됩니다. "실수로 지운 글 복구하기"가 훨씬 쉬워집니다.
 
 `incrementViews()`처럼 이 테이블에만 해당하는 로직은 Model에 메서드로 추가해두면, 컨트롤러 코드가 훨씬 깔끔해집니다.
 
