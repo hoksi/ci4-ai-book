@@ -42,7 +42,7 @@ CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 문서 검
 
 ## 진행 상태
 
-전체 목차 확정. [9장(RAG)](chapters/09-ai-docsearch-rag.md), [11장(AI 호출 에러 처리)](chapters/11-rate-limit-error.md), [12장(마크다운 안전 렌더링)](chapters/12-markdown-xss.md), [13장(배포하기)](chapters/13-deployment.md) 집필 완료, 나머지는 스텁 상태.
+전체 목차 확정. 1~5장(기초 다지기), 9장(RAG), 11장(AI 호출 에러 처리), 12장(마크다운 안전 렌더링), 13장(배포하기) 집필 완료. 남은 건 6~8장, 10장, 14장.
 
 ## 라이선스
 
