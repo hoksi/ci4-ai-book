@@ -4,6 +4,8 @@ CodeIgniter4 기본기를 실전 AI 기능(챗봇, 스팸 필터, RAG 문서 검
 
 공식 유저가이드([한글 번역](https://www.cikorea.net/docs/Codeigniter4))가 레퍼런스라면, 이 튜토리얼은 "그래서 이걸로 뭘 만드는가"에 초점을 맞춥니다. 모든 예제는 [cikorea.net CI4 Playground](https://cikorea2026.mycafe24.com/playground)에서 실제로 동작하는 코드를 기반으로 합니다.
 
+핵심 코드는 각 챕터 본문에 전부 인용되어 있습니다. Playground 저장소 자체는 비공개이지만, 챕터에서 다루는 파일의 전체 원본은 [`examples/`](examples/) 폴더에 별도로 공개해뒀습니다.
+
 ## 대상 독자
 
 - CI4 문법은 대충 알지만 실전 프로젝트를 어떻게 엮는지 감이 안 잡히는 분
